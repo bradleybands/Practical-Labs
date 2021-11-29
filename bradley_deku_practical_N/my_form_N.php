@@ -60,7 +60,7 @@ else {
   <h2>Image Uploads</h2>
 
 
-  <form class="" action="index.html" method="post">
+  <form action="my_form_N.php" method="post" enctype="multipart/form-data">
     <div>
         <label for="">Upload Image</label>
         <input type="file" name="image">
@@ -77,46 +77,71 @@ else {
 
   <?php
 
-
       if(isset($_POST['search1'])){
         $search1Result = $_POST['search1'];
         echo $search1Result;
       }
 
-
-    // if(isset($_POST['search1']))
-    // {
-    //
-    //     $user_search = $_POST['search1'];
-    //
-    //     $sql = "SELECT Search_term FROM practical_lab_table where Search_term='$user_search' " ;
-    //     $searchResult = $conn->query($sql);
-    //
-    //     if ($searchResult->num_rows > 0)
-    //     {
-    //       // Fetching Record
-    //       while($row = $searchResult->fetch_assoc())
-    //       {
-    //         echo  " Search_term " . $row["Search_term"].  "<br>";
-    //
-    //       }
-    //     } else
-    //       {
-    //         echo "0 search results found";
-    //       }
-    // }
-
     ?>
 
 
-    <h4>Images: </h4>
+
 
     <?php
-        if(isset($_POST['search1'])){
-          $search1Result = $_POST['search1'];
-          echo $search1Result;
-        }
+    if(isset($_POST['submitFile']))
+    {
+      $user_image = $_FILES['image'] ['name'];
+      $tempname = $_FILES['image'] ['tmp_name'];
+
+      move_uploaded_file($tempname, "../bradley_deku_practical_N/images/$user_image");
+
+      $uquery = "INSERT INTO practical_upload_table (User_image) VALUES ('$user_image')";
+      $urun = mysqli_query($conn, $uquery);
+
+
+
+
+  if ($urun  == true)
+  {
+    ?>
+    <script>
+      alert("Image added successfully !");
+      window.open('my_form_N.php', '_self');
+    </script>
+<?php
+  }
+  else
+  {
+    echo  mysqli_error($conn);
+  }
+}
+
+
       ?>
+      <h4>Images: </h4>
+      <?php
+
+      $img_query = "SELECT User_image FROM practical_upload_table";
+      $img_run = mysqli_query($conn, $img_query);
+
+      if ($img_run->num_rows > 0)
+      {
+        // Fetching Record
+        while($row = $img_run->fetch_assoc())
+        {
+          ?>
+          <img src="../bradley_deku_practical_N/images/<?php echo $row["User_image"]; ?>" width="200" alt="">
+          <br>
+          <?php
+
+        }
+      } else
+        {
+          echo "0 images found";
+
+        }
+
+       ?>
 
 
 </body>
