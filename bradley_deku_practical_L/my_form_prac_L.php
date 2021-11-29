@@ -4,6 +4,7 @@
 <?php
 // Start the session
 session_start();
+include('database_credentials.php')
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -27,7 +28,7 @@ session_start();
    ?>
 
     <div>
-      <input type="text" placeholder="Enter Search Item" id="search1" name="search1" value="<?= $search1Value ?>" pattern="[0-9]+">
+      <input type="text" placeholder="Enter Search Item" id="search1" name="search1" value="<?php $search1Value ?>" pattern="[0-9]+">
     </div>
     <button type="submit" value="search">Submit</button>
   </form>
