@@ -9,7 +9,12 @@ session_start();
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
     <title>Search Forms</title>
+
   </head>
   <body>
     <form method="POST">
@@ -33,12 +38,32 @@ session_start();
 
     <h2>BYTESearch 2</h2>
 
-    <form method="POST">
+    <form method="POST" id="addForm">
         <div >
             <input type="text" placeholder="Add Item" id ="addEntry" >
         </div>
-        <button type="submit" value="search" id = "addBtn" onClick="addToDatabase()">Add</button>
+        <button type="submit" id = "addBtn" >Add</button>
     </form>
+
+    <script>
+
+    $(document).ready(function(){
+      $("#addForm").submit(function(){
+                    var addVal = $("#addEntry").val();
+                    $.ajax({
+                        type:'POST',
+                        url:'insert_Ajax.php',
+                        data: addVal,
+                        success:function(data){
+                           alert(data);
+                       }
+                    });
+
+     });
+    });
+
+    </script>
+
 
     <br>
     <br>
@@ -58,7 +83,7 @@ session_start();
     ?>
 
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   function addToDatabase(){
     const addVal = document.getElementById("addEntry");
     alert(addVal.value);
@@ -80,7 +105,9 @@ session_start();
     });
 
   }
-</script>
+</script> -->
+
+
 
   </body>
 </html>

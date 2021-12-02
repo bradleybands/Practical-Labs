@@ -29,6 +29,8 @@ include('database_credentials.php')
 
     <div>
       <input type="text" placeholder="Enter Search Item" id="search1" name="search1" value="<?php $search1Value ?>" pattern="[0-9]+">
+      <br>
+      <span>*Enter only numbers</span>
     </div>
     <button type="submit" value="search">Submit</button>
   </form>
